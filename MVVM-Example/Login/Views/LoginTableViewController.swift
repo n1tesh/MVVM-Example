@@ -29,8 +29,6 @@ class LoginTableViewController: UITableViewController {
             self.submitButton.isEnabled = canSubmit
         }
         
-        self.emailTextField.text = "nitesh.isave@infinx.com"
-        self.passwordTextField.text = "ssdasdas489r"
     }
     
     @IBAction func submitButtonAction(_ sender: Any) {
