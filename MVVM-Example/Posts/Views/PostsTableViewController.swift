@@ -40,7 +40,7 @@ class PostsTableViewController: UITableViewController {
         self.searchController.searchResultsUpdater = self
         self.searchController.searchBar.sizeToFit()
         self.tableView.tableHeaderView = self.searchController.searchBar
-        definesPresentationContext = true
+        self.definesPresentationContext = true
     }
 
     private func setUpHomeView(){

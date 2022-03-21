@@ -17,6 +17,12 @@ enum APIError: Error {
     case decodingJSON
     case error
     case statusCode
+    var message: String {
+        switch self {
+        default:
+            return "Sorry, Something went wrong"
+        }
+    }
 }
 
 class NetworkManager {
@@ -34,6 +40,7 @@ class NetworkManager {
             guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
                 return completion(.failure(.statusCode))
             }
+            
             guard self.sucessRange.contains(statusCode) else {
                 return completion(.failure(.error))
             }

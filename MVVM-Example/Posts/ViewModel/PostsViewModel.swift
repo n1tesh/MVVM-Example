@@ -18,14 +18,17 @@ struct PostsViewModel {
     }
     
     func getAllPosts() {
+        guard ConnectionManager.shared.hasConnectivity() else{
+            self.posts.value = Post.getAllMockedPosts()
+            return
+        }
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/posts") else { return }
         NetworkManager.shared.getfetchData(url: url) { (result: Result<[Post], APIError>) in
             switch result {
             case .success(let posts):
                 self.posts.value = posts
-                print(posts)
             case .failure(let failure):
-                self.errorMessage.value = failure.localizedDescription
+                self.errorMessage.value = failure.message
             }
         }
 
