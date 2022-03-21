@@ -24,6 +24,11 @@ class LoginTableViewController: UITableViewController {
             }
             weakSelf.showAlert(title: nil, message: errorMessage, buttonTitles: nil, highlightedButtonIndex: nil, completion: nil)
         }
+        
+        viewModel.canSubmit.bind { canSubmit in
+            self.submitButton.isEnabled = canSubmit
+        }
+        
         self.emailTextField.text = "nitesh.isave@infinx.com"
         self.passwordTextField.text = "ssdasdas489r"
     }
@@ -38,6 +43,7 @@ class LoginTableViewController: UITableViewController {
 }
 
 extension LoginTableViewController: UITextFieldDelegate{
+    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField == emailTextField {
             viewModel.email = textField.text ?? ""
@@ -45,4 +51,5 @@ extension LoginTableViewController: UITextFieldDelegate{
             viewModel.password = textField.text ?? ""
         }
     }
+    
 }

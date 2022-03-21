@@ -10,13 +10,25 @@ import Foundation
 struct LoginViewModel {
     
     private(set) var errorMessage: Box<String?> = Box(nil)
-    var canSubmit: Bool {
-        return userNameIsValidFormat && passwordIsValidFormat
+    private(set) var canSubmit: Box<Bool> = Box(false)
+
+//    var canSubmit: Bool {
+//        return userNameIsValidFormat && passwordIsValidFormat
+//    }
+    var email: String = ""{
+        didSet{
+            emailIsValid = email.isValidEmail
+            canSubmit.value = emailIsValid && passwordIsValid
+        }
     }
-    var email: String = ""
-    var password: String = ""
-    private var passwordIsValidFormat: Bool = false
-    private var userNameIsValidFormat: Bool = false
+    var password: String = ""{
+        didSet{
+            passwordIsValid = self.validatePasswordFormat(password)
+            canSubmit.value = emailIsValid && passwordIsValid
+        }
+    }
+    private var passwordIsValid: Bool = false
+    private var emailIsValid: Bool = false
     
     private func validatePasswordFormat(_ password: String) -> Bool{
          let trimmedString = password.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
