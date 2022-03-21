@@ -36,7 +36,13 @@ class LoginTableViewController: UITableViewController {
     @IBAction func submitButtonAction(_ sender: Any) {
         self.dismissKeyboard()
         if viewModel.validateLogin(){
-            print("LOGIN IS SUCCESSFULL")
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let delegate = windowScene.delegate as? SceneDelegate else { return  }
+            let postsTVC = PostsTableViewController()
+            let rootVC = UINavigationController(rootViewController: postsTVC)
+            delegate.window?.rootViewController = rootVC
+            delegate.window?.makeKeyAndVisible()
+            
         }
     }
 

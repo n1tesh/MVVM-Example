@@ -11,28 +11,28 @@ struct LoginViewModel {
     
     private(set) var errorMessage: Box<String?> = Box(nil)
     private(set) var canSubmit: Box<Bool> = Box(false)
-
-//    var canSubmit: Bool {
-//        return userNameIsValidFormat && passwordIsValidFormat
-//    }
+    
+    private var passwordIsValid: Bool = false
+    private var emailIsValid: Bool = false
+    
     var email: String = ""{
         didSet{
             emailIsValid = email.isValidEmail
             canSubmit.value = emailIsValid && passwordIsValid
         }
     }
+    
     var password: String = ""{
         didSet{
             passwordIsValid = self.validatePasswordFormat(password)
             canSubmit.value = emailIsValid && passwordIsValid
         }
     }
-    private var passwordIsValid: Bool = false
-    private var emailIsValid: Bool = false
+    
     
     private func validatePasswordFormat(_ password: String) -> Bool{
          let trimmedString = password.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-         return trimmedString.count >= 8 &&  trimmedString.count <= 15
+         return trimmedString.count >= 8 && trimmedString.count <= 15
      }
     
     func validateLogin() -> Bool{
